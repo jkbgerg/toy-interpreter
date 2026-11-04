@@ -16,7 +16,7 @@ public class TextMenu {
     }
 
     private void printMenu() {
-        System.out.println("\n--- TOY LANGUAGE INTERPRETER MENU ---");
+        System.out.println("\n TOY LANGUAGE INTERPRETER");
         for (Command com : commands.values()) {
             String line = String.format("%4s : %s", com.getKey(), com.getDescription());
             System.out.println(line);
