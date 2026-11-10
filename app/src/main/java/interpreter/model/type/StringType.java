@@ -11,5 +11,5 @@ public record StringType() implements IType{
     }
 
     @Override
-    public String toString(){return "str";}
+    public String toString(){return "string";}
 }

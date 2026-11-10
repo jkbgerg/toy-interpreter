@@ -7,6 +7,8 @@ import interpreter.model.adt.MyDictionary;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.type.StringType;
+import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -68,5 +70,11 @@ class ExpressionTest {
         IExp varExp = new VarExp("x");
         var ex = assertThrows(ExpressionException.class, () -> varExp.eval(symTable));
         assertEquals("variable x is not defined", ex.getMessage());
+    }
+
+    @Test
+    void testRelationalExpressions() {
+        IExp ex1=new RelationalExp(RelOp.EQ, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(5)) );
+        assertEquals(new BoolValue(true),ex1.eval(symTable));
     }
 }
