@@ -1,25 +1,20 @@
 package interpreter.view;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class TextMenu {
-    private final Map<String, Command> commands;
-
-    public TextMenu() {
-        this.commands = new HashMap<>();
-    }
+    private final Map<String, Command> commands = new LinkedHashMap<>();
 
     public void addCommand(Command c) {
         commands.put(c.getKey(), c);
     }
 
     private void printMenu() {
-        System.out.println("\n TOY LANGUAGE INTERPRETER");
-        for (Command com : commands.values()) {
-            String line = String.format("%4s : %s", com.getKey(), com.getDescription());
-            System.out.println(line);
+        System.out.println("\n--- TOY LANGUAGE INTERPRETER ---");
+        for (Command c : commands.values()) {
+            System.out.printf("%4s : %s%n", c.getKey(), c.getDescription());
         }
     }
 
@@ -28,13 +23,13 @@ public class TextMenu {
         while (true) {
             printMenu();
             System.out.print("Input option: ");
-            String key = scanner.nextLine();
-            Command com = commands.get(key);
-            if (com == null) {
+            String inputKey = scanner.nextLine().strip();
+            Command c = commands.get(inputKey);
+            if (c == null) {
                 System.out.println("Invalid option! Please try again.");
                 continue;
             }
-            com.execute();
+            c.execute();
         }
     }
 }

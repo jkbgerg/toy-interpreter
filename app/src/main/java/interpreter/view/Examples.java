@@ -4,8 +4,10 @@ import interpreter.model.exp.*;
 import interpreter.model.stmt.*;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 
 public class Examples {
     // Ex1: int v; v = 2; print(v)
@@ -50,4 +52,35 @@ public class Examples {
                     )
             )
     );
+
+    // Ex4: File example helper method
+    public static IStmt fileExample(String fileName) {
+        return new CompStmt(
+                new VarDeclStmt("varf", new StringType()),
+                new CompStmt(
+                        new AssignStmt("varf", new ValueExp(new StringValue(fileName))),
+                        new CompStmt(
+                                new OpenRFileStmt(new VarExp("varf")),
+                                new CompStmt(
+                                        new VarDeclStmt("varc", new IntType()),
+                                        new CompStmt(
+                                                new ReadFileStmt(new VarExp("varf"), "varc"),
+                                                new CompStmt(
+                                                        new PrintStmt(new VarExp("varc")),
+                                                        new CompStmt(
+                                                                new ReadFileStmt(new VarExp("varf"), "varc"),
+                                                                new CompStmt(
+                                                                        new PrintStmt(new VarExp("varc")),
+                                                                        new CloseRFileStmt(new VarExp("varf"))
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+    }
+
+    public static final IStmt EX4 = fileExample("test.in");
 }

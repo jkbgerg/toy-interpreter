@@ -73,8 +73,28 @@ class ExpressionTest {
     }
 
     @Test
-    void testRelationalExpressions() {
-        IExp ex1=new RelationalExp(RelOp.EQ, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(5)) );
-        assertEquals(new BoolValue(true),ex1.eval(symTable));
+    void testRelationalExpressions() throws MyExceptions{
+        IExp expEq=new RelationalExp(RelOp.EQ, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(5)) );
+        assertEquals(new BoolValue(true),expEq.eval(symTable));
+
+        IExp expGe=new RelationalExp(RelOp.GE, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(5)) );
+        assertEquals(new BoolValue(true),expGe.eval(symTable));
+
+        IExp expG=new RelationalExp(RelOp.GT, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(2)) );
+        assertEquals(new BoolValue(true),expG.eval(symTable));
+
+        IExp expLe=new RelationalExp(RelOp.LE, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(5)) );
+        assertEquals(new BoolValue(true),expLe.eval(symTable));
+
+        IExp expL=new RelationalExp(RelOp.LT, new ValueExp(new IntValue(5)),new ValueExp(new IntValue(10)) );
+        assertEquals(new BoolValue(true),expL.eval(symTable));
+
+        IExp expNe=new RelationalExp(RelOp.NE, new ValueExp(new IntValue(1)),new ValueExp(new IntValue(5)) );
+        assertEquals(new BoolValue(true),expNe.eval(symTable));
+
+        IExp expNotInt=new RelationalExp(RelOp.EQ, new ValueExp(new StringValue("s")),new ValueExp(new IntValue(5)) );
+
+        var ex = assertThrows(ExpressionException.class, () -> expNotInt.eval(symTable));
+        assertEquals("first operand is not an integer", ex.getMessage());
     }
 }

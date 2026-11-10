@@ -4,7 +4,7 @@ public abstract class Command {
     private final String key;
     private final String description;
 
-    public Command(String key, String description) {
+    protected Command(String key, String description) {
         this.key = key;
         this.description = description;
     }
