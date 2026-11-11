@@ -1,7 +1,6 @@
 package interpreter.view;
 
 import interpreter.controller.Controller;
-import interpreter.exceptions.MyExceptions; // vagy MyExceptions, a te projektedtől függően
 import interpreter.exceptions.MyExceptions;
 
 public class RunExampleCommand extends Command {
@@ -23,7 +22,7 @@ public class RunExampleCommand extends Command {
 
         try {
             controller.allStep();
-        } catch (MyExceptions e) { // Ha nálad MyExceptions van, írd át arra
+        } catch (MyExceptions e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Unexpected Error: " + e.getMessage());

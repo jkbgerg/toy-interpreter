@@ -3,6 +3,7 @@ package interpreter.view;
 import interpreter.model.exp.*;
 import interpreter.model.stmt.*;
 import interpreter.model.type.BoolType;
+import interpreter.model.type.IType;
 import interpreter.model.type.IntType;
 import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
@@ -83,4 +84,30 @@ public class Examples {
     }
 
     public static final IStmt EX4 = fileExample("test.in");
+
+
+
+    // TODO: EX5 – int a; int b; a = 5; b = 7; // (if a < b then print(a) else print(b))
+
+    public static IStmt fileExample2(String filename){
+        return new CompStmt(
+                new VarDeclStmt("a", new IntType()),
+                new CompStmt(
+                        new VarDeclStmt("b",new IntType()),
+                        new CompStmt(
+                                new AssignStmt("a",new ValueExp(new IntValue(5))),
+                                new CompStmt(
+                                        new AssignStmt("b",new ValueExp(new IntValue(7))),
+                                        new IfStmt(new RelationalExp(RelOp.LT,new VarExp("a"),new VarExp("b")),
+                                                new PrintStmt(new VarExp("a")),
+                                                new PrintStmt(new VarExp("b"))
+                                        )
+                                )
+                        )
+                )
+
+        );
+    }
+    public static final IStmt EX5=fileExample2("test2.in");
+
 }
